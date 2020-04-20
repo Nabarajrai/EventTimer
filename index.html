@@ -1,0 +1,217 @@
+<!DOCTYPE HTML> 
+<html>
+  <html lang="en">
+<head> 
+ <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<style> 
+ body,.jumbotron{padding:32px}
+p { 
+  text-align: center; 
+  font-size: 3000px; 
+} 
+.text-center{
+  margin-bottom: 20px;
+}
+.btn{
+  margin-bottom: 30px;
+}
+
+
+.modal {
+  display: none; 
+  position: fixed;
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4); 
+  -webkit-animation-name: fadeIn; 
+  -webkit-animation-duration: 0.4s;
+  animation-name: fadeIn;
+  animation-duration: 0.4s
+}
+
+.modal-content {
+  position: fixed;
+  bottom: 0;
+  background-color: #fefefe;
+  width: 100%;
+  -webkit-animation-name: slideIn;
+  -webkit-animation-duration: 0.4s;
+  animation-name: slideIn;
+  animation-duration: 0.4s
+}
+
+
+.close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 2px 16px;
+  background-color: #a8b862;
+  color: white;
+}
+
+.modal-body {padding: 2px 16px;}
+
+.modal-footer {
+  padding: 2px 16px;
+  background-color: #c8da7c;
+  color: white;
+}
+
+
+
+@-webkit-keyframes slideIn {
+  from {bottom: -300px; opacity: 0} 
+  to {bottom: 0; opacity: 1}
+}
+
+@keyframes slideIn {
+  from {bottom: -300px; opacity: 0}
+  to {bottom: 0; opacity: 1}
+}
+
+@-webkit-keyframes fadeIn {
+  from {opacity: 0} 
+  to {opacity: 1}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0} 
+  to {opacity: 1}
+}
+</style> 
+</head> 
+<body> 
+  <div class="jumbotron">
+    <div class="text-center">Event Counter</div>
+<p id="demo">
+  <span class="day"></span>
+  <span class="hour"></span>
+  <span class="minute"></span>
+  <span class="second"></span>
+</p> 
+<div >
+<button id="myBtn" class="btn btn-primary ">Register</button></div>
+<div id="myModal" class="modal">
+
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+      <h2 class="text-center">Event Going on</h2>
+    </div>
+    <div class="modal-body">
+      <label for="name">Event Name</label>
+      <input type="text" class="form-control" id="name">
+      <label for="email">Contact Email</label>
+      <input type="email" class="form-control" id="email" style="margin-bottom: 30px;">
+      <div>
+      <button id="naba" class="btn btn-primary btn-lg">Submit</button>
+    </div>
+      <p>Best of luck</p>
+    </div>
+    <div class="modal-footer">
+      <h4 class="text-center">Organized By Topline Technology(CEO Tilak kc)</h4>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<div class="jumbotron" id="div">
+  <p style="cursor: pointer;" class="text-right" id="delete">X<p></p>
+</div>
+
+
+<script>
+  const demo=document.querySelector('#demo')
+  const day=document.querySelector('.day');
+  const hour=document.querySelector('.hour');
+  const minute=document.querySelector('.minute');
+  const second=document.querySelector('.second');
+
+const deadline =new Date(prompt('Please enter the date how much do you wanna keep time interval from this time to your set time .demo (April 21, 2020 10:37:25)')) .getTime(); 
+const  interval = setInterval(function() { 
+const now = new Date().getTime(); 
+const t = deadline - now; 
+const days = Math.floor(t / (1000 * 60 * 60 * 24)); 
+const hours = Math.floor((t%(1000 * 60 * 60 * 24))/(1000 * 60 * 60)); 
+const minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60)); 
+const seconds = Math.floor((t % (1000 * 60)) / 1000); 
+day.textContent=days+""+"D";
+hour.textContent=hours+""+"H";
+minute.textContent=minutes+""+"M";
+second.textContent=seconds+""+"S";
+    if (t < 0) { 
+        clearInterval(interval);
+      demo.innerHTML = "EXPIRED"; 
+    } 
+}, 1000); 
+const modal = document.querySelector("#myModal");
+
+const btn = document.querySelector("#myBtn");
+
+const span = document.querySelector(".close");
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+span.onclick = function() {
+  modal.style.display = "none";
+}
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+const submitButtton=document.querySelector('#naba');
+const demo1=document.querySelector('#demo');
+const demo3=document.querySelector('#demo2');
+const nameinput=document.querySelector('[type="text"]');
+const emailinput=document.querySelector('[type="email"]');
+
+function listName(){
+  const name=document.createElement('h3');
+const email=document.createElement('h3');
+
+const div=document.querySelector('#div');
+name.textContent=nameinput.value;
+email.textContent=emailinput.value;
+console.log(name);
+div.appendChild(name);
+div.appendChild(email);
+nameinput.value="";
+emailinput.value="";
+}
+
+submitButtton.addEventListener('click',listName);
+
+const deleteBtn=document.querySelector('#delete');
+
+function handleDelete(){
+  this.parentNode.remove();
+}
+deleteBtn.addEventListener('click',handleDelete);
+
+</script> 
+
+</body> 
+</html> 
